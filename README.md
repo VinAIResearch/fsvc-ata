@@ -1,7 +1,7 @@
 # Inductive and Transductive Few-Shot Video Classification via Appearance and Temporal Alignments
 by [Khoi D. Nguyen](https://khoiucd.github.io), [Quoc-Huy Tran](https://cs.adelaide.edu.au/~huy/home.php), [Khoi Nguyen](https://www.khoinguyen.org), [Binh-Son Hua](https://sonhua.github.io), and [Rang Nguyen](https://rangnguyen.github.io)
 
-We present a novel method for few-shot video classification, which performs appearance and temporal alignments. In particular, given a pair of query and support videos, we conduct appearance alignment via frame-level feature matching to achieve the appearance similarity score between the videos, while utilizing temporal order-preserving priors for obtaining the temporal similarity score between the videos. Moreover, we leverages the above appearance and temporal similarity scores in prototypes refinement for both inductive and transductive settings. To the best of our knowledge, our work is the first to explore transductive few-shot video classification.
+We present a novel method for few-shot video classification, which performs appearance and temporal alignments. In particular, given a pair of query and support videos, we conduct appearance alignment via frame-level feature matching to achieve the appearance similarity score between the videos, while utilizing temporal order-preserving priors for obtaining the temporal similarity score between the videos. Moreover, we leverage the above appearance and temporal similarity scores in prototypes refinement for both inductive and transductive settings. To the best of our knowledge, our work is the first to explore transductive few-shot video classification.
 
 ![teaser](assets/teaser.png)
 
