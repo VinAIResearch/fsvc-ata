@@ -116,7 +116,7 @@ The processing of video data can be summarized as follows:
 
 ## Testing
 
-
+The pretrained models are available [here](https://drive.google.com/drive/folders/1vmQOPHAVHbs349U9NRSY2PR8lly7KlTA?usp=sharing)
 
 To test the downloaded pretrained models on Something-Something V2, you can modify/run `scripts/test_somethingv2_rgb_8f.sh`. For example, to test 5-way/1-shot inductive settings on 10,000 episodes:
 
