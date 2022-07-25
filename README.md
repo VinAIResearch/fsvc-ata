@@ -141,6 +141,19 @@ python -u main.py somethingv2 RGB --arch resnet50 --num_segments 8 -j 2 \
 
 - `transductive`: Whether to do perform transductive or inductive, default to `False`
 
+## Training
+
+
+To train on Something-Something V2 from ImageNet pretrained models, you can run `scripts/train_somethingv2_rgb_8f.sh`, which contains:
+
+```bash
+# train on Something-Something V2
+python -u main.py somethingv2 RGB --arch resnet50 \
+--num_segments 8 --gd 20 --lr 0.001 --lr_steps 10 20 --epochs 25 --batch-size 32 \
+-j 2 --dropout 0.5 --root_log ./checkpoints/path \
+--root_model ./checkpoints/path --eval-freq=1 --npb \
+--wd 0.0005 --print-freq 200 --gpus 0 --episodes 600
+```
 
 ## Acknowledgment
 We thank the following repos providing helpful components/functions in our work.
