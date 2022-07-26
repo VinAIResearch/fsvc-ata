@@ -10,7 +10,7 @@ parser.add_argument("--root_path", type=str, default="")
 parser.add_argument("--store_name", type=str, default="")
 # ========================= Model Configs ==========================
 parser.add_argument("--arch", type=str, default="BNInception")
-parser.add_argument("--num_segments", type=int, default=3)
+parser.add_argument("--num_segments", type=int, default=8)
 parser.add_argument("--k", type=int, default=3)
 
 parser.add_argument("--dropout", "--do", default=0.5, type=float, metavar="DO", help="dropout ratio (default: 0.5)")
@@ -22,13 +22,13 @@ parser.add_argument("--tune_from", type=str, default=None, help="fine-tune from 
 parser.add_argument("--syncbn", default=False, action="store_true")
 
 # ========================= Learning Configs ==========================
-parser.add_argument("--epochs", default=120, type=int, metavar="N", help="number of total epochs to run")
+parser.add_argument("--epochs", default=25, type=int, metavar="N", help="number of total epochs to run")
 parser.add_argument("-b", "--batch-size", default=128, type=int, metavar="N", help="mini-batch size (default: 256)")
 parser.add_argument("--lr", "--learning-rate", default=0.001, type=float, metavar="LR", help="initial learning rate")
 parser.add_argument("--lr_type", default="step", type=str, metavar="LRtype", help="learning rate type")
 parser.add_argument(
     "--lr_steps",
-    default=[50, 100],
+    default=[10, 20],
     type=float,
     nargs="+",
     metavar="LRSteps",
