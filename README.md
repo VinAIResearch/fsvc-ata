@@ -5,7 +5,7 @@ We present a novel method for few-shot video classification, which performs appe
 
 ![teaser](assets/teaser.png)
 
-Details of our evaluation framework and benchmark results can be found in our paper:
+Details of our evaluation framework and benchmark results can be found in [our paper](https://arxiv.org/abs/2207.10785):
 ```bibtex
 @inproceedings{khoi2022ata,
     title={Inductive and Transductive Few-Shot Video Classification via Appearance and Temporal Alignments},
