@@ -24,10 +24,9 @@ Details of our evaluation framework and benchmark results can be found in [our p
 
 - [Data Preparation](#data-preparation)
 
-- [Testing](#testing)
-
 - [Training](#training)
 
+- [Testing](#testing)
 
 
 ## Prerequisites
@@ -56,15 +55,15 @@ The code is built with following libraries:
 
 ## Data Preparation
 
-Check [this](https://github.com/MCG-NJU/FSL-Video) for details of data downloading. 
+Check [this](https://github.com/MCG-NJU/FSL-Video) for details of Something-Something V2 downloading. 
 
-For data preprocessing, we use [vidtools](https://github.com/liu-zhy/vidtools.git) as in [TAM](https://github.com/liu-zhy/temporal-adaptive-module) to extracte frames of video.
+For data preprocessing, we use [vidtools](https://github.com/liu-zhy/vidtools.git) as in [TAM](https://github.com/liu-zhy/temporal-adaptive-module) to extract frames of video.
 
 The processing of video data can be summarized as follows:
 
 - Extract frames from videos.
 
-  1. Firstly, you need clone [vidtools](https://github.com/liu-zhy/vidtools.git):
+  1. Firstly, users need clone [vidtools](https://github.com/liu-zhy/vidtools.git):
 
      ```bash
      git clone https://github.com/liu-zhy/vidtools.git & cd vidtools
@@ -73,16 +72,16 @@ The processing of video data can be summarized as follows:
    2. Extract frames by running:
 
       ```
-      python extract_frames.py VIDEOS_PATH/ \
-      -o DATASETS_PATH/frames/ \
+      python extract_frames.py VIDEO_PATH/ \
+      -o DATASET_PATH/frames/ \
       -j 16 --out_ext png
       ```
 
-      We suggest you use ```--out_ext jpg``` with limited disk storage.
+      We suggest users using ```--out_ext jpg``` with limited disk storage.
 
-- Generate the annotation.
+- Generate the annotation by running [ops/gen_label_sthv2.py](ops/gen_label_sthv2.py).
 
-  The annotation usually includes train.txt, val.txt and test.txt (optional). The format of *.txt file is like:
+  The annotation includes train.txt, val.txt and test.txt. The format of *.txt file is like:
 
   ```
   frames/video_1 num_frames label_1
@@ -96,7 +95,7 @@ The processing of video data can be summarized as follows:
 
   ```
   datasets
-    |_ Kinetics400
+    |_ smsm
       |_ frames
       |  |_ [video_0]
       |  |  |_ img_00001.png
@@ -109,21 +108,52 @@ The processing of video data can be summarized as follows:
       |_ annotations
          |_ train.txt
          |_ val.txt
-         |_ test.txt (optional)
+         |_ test.txt
   ```
 
-- Configure the dataset in [ops/dataset_configs.py](ops/dataset_configs.py).
+- Configure the dataset in [ops/dataset_config.py](ops/dataset_config.py).
+
+## Training
+
+
+To train on Something-Something V2 from ImageNet pretrained models, users can run `scripts/train_somethingv2_rgb_8f.sh`, which contains:
+
+```bash
+# train on Something-Something V2
+python -u main.py somethingv2 RGB --arch resnet50 \
+--num_segments 8 --lr 0.001 --lr_steps 10 20 --epochs 25  \
+--batch-size 32 --workers 2 --dropout 0.5 \
+--root_log ./checkpoints/path --root_model ./checkpoints/path \
+--wd 0.0005 --gpus 0 --episodes 600
+
+```
+
+**Training Arguments** 
+
+- `num_segments`: Number of frames per video, default to `8`
+
+- `lr`: Initial learning rate, default to `0.001`
+
+- `lr_steps`: Epochs to decay learning rate by 10, default to `[10, 20]`
+
+- `batch-size`: Mini-batch size, default to `128`
+
+- `workers`: Number of workers, default to `8`
+
+- `epochs`: Number of training epochs, default to `25`
+
+- `wd`: Weight decay. default to `5e-4`
 
 ## Testing
 
 The pretrained models are available [here](https://drive.google.com/drive/folders/1vmQOPHAVHbs349U9NRSY2PR8lly7KlTA?usp=sharing)
 
-To test the downloaded pretrained models on Something-Something V2, you can modify/run `scripts/test_somethingv2_rgb_8f.sh`. For example, to test 5-way/1-shot inductive settings on 10,000 episodes:
+To test the downloaded pretrained models on Something-Something V2, users can modify/run `scripts/test_somethingv2_rgb_8f.sh`. For example, to test 5-way/1-shot inductive settings on 10,000 episodes:
 
 ```bash
 # test on Something-Something V2
-python -u main.py somethingv2 RGB --arch resnet50 --num_segments 8 -j 2 \
---root_log ./checkpoints/path --root_model ./checkpoints/path --npb \
+python -u main.py somethingv2 RGB --arch resnet50 --num_segments 8 --workers 2 \
+--root_log ./checkpoints/path --root_model ./checkpoints/path \
 --resume ./checkpoints/path/ckpt.best.pth.tar --evaluate --gpus 0 --way 5 --shot 1 --episodes 10000
 ```
 
@@ -140,20 +170,6 @@ python -u main.py somethingv2 RGB --arch resnet50 --num_segments 8 -j 2 \
 - `iter`: Number of prototype refinement steps for each episode, default to `50`
 
 - `transductive`: Whether to do perform transductive or inductive, default to `False`
-
-## Training
-
-
-To train on Something-Something V2 from ImageNet pretrained models, you can run `scripts/train_somethingv2_rgb_8f.sh`, which contains:
-
-```bash
-# train on Something-Something V2
-python -u main.py somethingv2 RGB --arch resnet50 \
---num_segments 8 --gd 20 --lr 0.001 --lr_steps 10 20 --epochs 25 --batch-size 32 \
--j 2 --dropout 0.5 --root_log ./checkpoints/path \
---root_model ./checkpoints/path --eval-freq=1 --npb \
---wd 0.0005 --print-freq 200 --gpus 0 --episodes 600
-```
 
 ## Acknowledgment
 We thank the following repos providing helpful components/functions in our work.
