@@ -41,7 +41,7 @@ parser.add_argument(
 parser.add_argument(
     "--clip-gradient", "--gd", default=None, type=float, metavar="W", help="gradient norm clipping (default: disabled)"
 )
-parser.add_argument("--no_partialbn", "--npb", default=False, action="store_true")
+parser.add_argument("--no_partialbn", "--npb", default=True, action="store_true")
 
 
 # ========================= Monitor Configs ==========================
