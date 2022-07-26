@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 
 if __name__ == "__main__":
-    dataset_path = "DATASETS_PATH"
+    dataset_path = "DATASET_PATH"
     video_path = "VIDEO_PATH"
 
     splits = ["train", "test", "val"]
