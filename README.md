@@ -99,7 +99,7 @@ The processing of video data can be summarized as follows:
       |_ frames
       |  |_ [video_0]
       |  |  |_ img_00001.png
-      |  |  |_ img_00001.png
+      |  |  |_ img_00002.png
       |  |  |_ ...
       |  |_ [video_1]
       |     |_ img_00001.png
