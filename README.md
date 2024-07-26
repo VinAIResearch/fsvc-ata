@@ -63,7 +63,7 @@ The processing of video data can be summarized as follows:
 
 - Extract frames from videos.
 
-  1. Firstly, users need clone [vidtools](https://github.com/liu-zhy/vidtools.git):
+  1. First, clone [vidtools](https://github.com/liu-zhy/vidtools.git):
 
      ```bash
      git clone https://github.com/liu-zhy/vidtools.git & cd vidtools
